@@ -154,7 +154,7 @@ describe('BinaryTree', () => {
 
 			bt.should.deep.equal(btCopy);
 		});
-	});
+	}); 
 
 	describe('#size()', () => {
 		it('returns number of elements in tree', () => {
