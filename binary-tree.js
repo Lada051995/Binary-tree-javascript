@@ -56,21 +56,6 @@ class BinaryTree {
 
 
 	remove(data) {
-		function getSuccessor(nodeForDel){
-			var successorParent = nodeForDel;
-			var successor = nodeForDel;
-			var current = nodeForDel.right;
-			while (current != null){
-				successorParent = successor;
-				successor = current;
-				current = current.left;
-			}
-			if (successor != nodeForDel.right){
-				successorParent.left = successor.right;
-				successor.right = nodeForDel.right;
-			}
-			return successor;
-		}
 		var parent = this.root;
 		var current = this.root;
 		var toLeft = true;
@@ -86,13 +71,13 @@ class BinaryTree {
 				current = current.right;
 			}
 
-			if (current === null){
-				return false;
+			if (current == null){
+				return;
 			}
 		}
 
-		if (current.right === null && current.left === null ){
-			if (current == this.root){
+		if (current.right == null && current.left == null ){
+			if (current.data == this.root.data){
 				this.root = null;
 			} else if (toLeft == true) {
 				parent.left = null;
@@ -100,8 +85,8 @@ class BinaryTree {
 			else {
 				parent.right = null;
 			}
-		} else if (current.right === null){
-			if (current == this.root){
+		} else if (current.right == null){
+			if (current.data == this.root.data){
 				this.root = current.left;
 			} else if (toLeft == true){
 				parent.left = current.left;
@@ -109,8 +94,8 @@ class BinaryTree {
 				parent.right = current.left;
 			}
 
-		} else if (current.left === null){
-			if (current == this.root){
+		} else if (current.left == null){
+			if (current.data == this.root.data){
 				this.root = current.right;
 			} else if (toLeft == true){
 				parent.left = current.right;
@@ -125,12 +110,30 @@ class BinaryTree {
 			if (current == this.root){
 				this.root = successor;
 			} else if (toLeft == true){
+				successor.left = parent.left.left;
 				parent.left = successor;
-				parent.right = r;
+
 			} else {
+                successor.left = parent.right.left;
 				parent.right = successor;
-				parent.left = l;
+
 			}
+		}
+
+		function getSuccessor(nodeForDel){
+			var successorParent = nodeForDel;
+			var successor = nodeForDel;
+			var current = nodeForDel.right;
+			while (current != null){
+				successorParent = successor;
+				successor = current;
+				current = current.left;
+			}
+			if (successor != nodeForDel.right){
+				successorParent.left = successor.right;
+				successor.right = nodeForDel.right;
+			}
+			return successor;
 		}
 
 	}
@@ -165,5 +168,6 @@ class BinaryTree {
 		}
 
 	}
+
 
 }
